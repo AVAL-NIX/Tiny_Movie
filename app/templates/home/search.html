@@ -1,0 +1,50 @@
+{% extends "home/home.html" %}
+
+{% import 'ui/home_page.html' as pg %}
+{% block css %}
+    <style>
+        .navbar-brand > img {
+            display: inline;
+        }
+
+        .media {
+            padding: 3px;
+            border: 1px solid #ccc
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb" style="margin-top:6px;">
+                <li>与 {{  key }}有关的电影，共{{ page_data.total }}部</li>
+            </ol>
+        </div>
+        <div class="col-md-12">
+            {% for v in page_data.items %}
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{ url_for('home.play',id = v.id) }}">
+                            {% if v.logo %}
+                            <img class="media-object" src="{{ url_for('static',filename='uploads/'+v.logo) }}" style="width:131px; height:83px;" alt="{{ v.title }}">
+                            {% else %}
+                                <img class="media-object" src="holder.js/131x83" style="width:131px; height:83px;" alt="{{ v.title }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ v.title }}<a href="{{ url_for('home.play', id = v.id) }}"
+                                                                  class="label label-primary pull-right"><span
+                                class="glyphicon glyphicon-play"></span>播放影片</a></h4>
+                        {{ v.title }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12 text-center">
+            <nav aria-label="Page navigation">
+                {{ pg.page('home.search',page_data) }}
+            </nav>
+        </div>
+    </div>
+{% endblock %}

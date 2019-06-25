@@ -1,0 +1,94 @@
+{% extends "home/home.html" %}
+
+{% block content %}
+    {% include "home/menu.html" %}
+    <div class="col-md-9">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;会员中心</h3>
+            </div>
+
+            {% include 'home/head_tip.html' %}
+            <div class="panel-body">
+                <form role="form" method="post" enctype="multipart/form-data">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="input_name"><span
+                                    class="glyphicon glyphicon-user"></span>&nbsp;{{ form.name.label }}</label>
+                            {{ form.name }}
+                            {% for err in form.name.errors %}
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ err }}</font>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12" id="error_name"></div>
+                        <div class="form-group">
+                            <label for="input_email"><span
+                                    class="glyphicon glyphicon-envelope"></span>&nbsp;{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% for err in form.email.errors %}
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ err }}</font>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12" id="error_email"></div>
+                        <div class="form-group">
+                            <label for="input_phone"><span
+                                    class="glyphicon glyphicon-phone"></span>&nbsp;{{ form.phone.label }}</label>
+                            {{ form.phone }}
+                            {% for err in form.phone.errors %}
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ err }}</font>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12" id="error_phone"></div>
+                        <div class="form-group">
+                            <label for="input_face"><span
+                                    class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;{{ form.face.label }}</label>
+
+                            {% if form.face.data %}
+                                <img src="{{ url_for('static', filename='uploads/users/'+ form.face.data) }}" class="img-responsive img-rounded">
+                            {% else %}
+                                <img src="holder.js/100x100" class="img-responsive img-rounded">
+                            {% endif %}
+{#                            <a class="btn btn-primary" style="margin-top:6px;"><span#}
+{#                                    class="glyphicon glyphicon-open"></span>&nbsp;{{ form.face.description }}</a>#}
+                            {{ form.face }}
+                            {% for err in form.face.errors %}
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ err }}</font>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12" id="error_face"></div>
+                        <div class="form-group">
+                            <label for="input_info"><span
+                                    class="glyphicon glyphicon-edit"></span>&nbsp;{{ form.info.label }}</label>
+                            {{ form.info }}
+                            {% for err in form.info.errors %}
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ err }}</font>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12" id="error_info"></div>
+                        {{ form.csrf_token }}
+                        {{ form.submit }}
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $("#m-1").addClass("active");
+        });
+    </script>
+{% endblock %}
